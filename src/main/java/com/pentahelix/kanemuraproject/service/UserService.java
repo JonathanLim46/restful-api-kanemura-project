@@ -2,6 +2,7 @@ package com.pentahelix.kanemuraproject.service;
 
 import com.pentahelix.kanemuraproject.entity.User;
 import com.pentahelix.kanemuraproject.model.RegisterUserRequest;
+import com.pentahelix.kanemuraproject.model.UserResponse;
 import com.pentahelix.kanemuraproject.repository.UserRepository;
 import com.pentahelix.kanemuraproject.security.BCrypt;
 import jakarta.transaction.Transactional;
@@ -41,5 +42,12 @@ public class UserService{
         user.setName(request.getName());
 
         userRepository.save(user);
+    }
+
+    public UserResponse get(User user){
+        return UserResponse.builder()
+                .username(user.getUsername())
+                .name(user.getName())
+                .build();
     }
 }
