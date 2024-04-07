@@ -22,15 +22,15 @@ public class UserService{
     private UserRepository userRepository;
 
     @Autowired
-    private Validator validator;
+    private ValidationService validationService;
 
     @Transactional
     public void register(RegisterUserRequest request){
-        Set<ConstraintViolation<RegisterUserRequest>> constraintViolations = validator.validate(request);
-        if (!constraintViolations.isEmpty()){
-            throw new ConstraintViolationException(constraintViolations);
-        }
 
+//        Validation Service
+        validationService.validate(request);
+
+//        USER REQUEST ID
         if(userRepository.existsById(request.getUsername())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already registered");
         }
