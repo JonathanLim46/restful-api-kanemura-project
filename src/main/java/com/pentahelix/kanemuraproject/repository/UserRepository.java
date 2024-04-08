@@ -9,5 +9,6 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
 
+//    mencari token di database
     Optional<User> findFirstByToken(String token);
 }

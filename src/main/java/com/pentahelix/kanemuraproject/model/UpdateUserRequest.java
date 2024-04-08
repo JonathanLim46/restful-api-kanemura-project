@@ -1,5 +1,6 @@
 package com.pentahelix.kanemuraproject.model;
 
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,10 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-//user response untuk ketentuan get user response
-public class UserResponse {
+public class UpdateUserRequest {
 
-    private String username;
-
+    @Size(max = 100)
     private String name;
+
+    @Size(max = 100)
+    private String password;
 }
+
