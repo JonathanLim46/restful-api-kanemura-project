@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+//user response untuk ketentuan get user response
 public class UserResponse {
 
     private String username;
