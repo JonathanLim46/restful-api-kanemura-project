@@ -11,9 +11,11 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 public class UserController {
     @Autowired
     private UserService userService;
+
 
     @PostMapping(
             path="/api/users",
