@@ -1,22 +1,25 @@
 package com.pentahelix.kanemuraproject.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+public class MenuResponse {
 
-public class WebResponse<T> {
 
-    private T data;
+    private Integer idMenu;
 
-    private String errors;
+    private String nama_menu;
 
-    private PagingResponse paging;
+    private String description;
+
+    private Integer harga;
+
+    private String kategori;
 
 }
