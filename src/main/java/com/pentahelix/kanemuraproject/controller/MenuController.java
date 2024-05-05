@@ -66,7 +66,8 @@ public class MenuController {
                                                   @RequestParam(value = "kategori", required = false) String kategori,
                                                   @RequestParam(value = "harga", required = false) Integer harga,
                                                   @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
-                                                  @RequestParam(value = "size", required = false, defaultValue = "10") Integer size){
+                                                  @RequestParam(value = "size", required = false, defaultValue = "10") Integer size,
+                                                  @RequestParam(value="signature",required = false) boolean signature){
         SearchMenuRequest request = SearchMenuRequest.builder()
                 .page(page)
                 .size(size)
@@ -74,6 +75,7 @@ public class MenuController {
                 .description(description)
                 .kategori(kategori)
                 .harga(harga)
+                .signature(signature)
                 .build();
 
         Page<MenuResponse> menuResponses = menuService.search(request);

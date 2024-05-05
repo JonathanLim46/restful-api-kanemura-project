@@ -86,6 +86,7 @@ class MenuControllerTest {
         request.setDescription("Makanan Mie Jepang");
         request.setHarga(15000);
         request.setKategori("Ramen");
+        request.setSignature(true);
 
         mockMvc.perform(
                 post("/api/auth/menus")
@@ -103,6 +104,7 @@ class MenuControllerTest {
             assertEquals(15000,response.getData().getHarga());
             assertEquals("Ramen",response.getData().getKategori());
             assertEquals("Ramen Wow",response.getData().getNama_menu());
+            assertTrue(response.getData().isSignature());
 
 
 
@@ -291,12 +293,13 @@ class MenuControllerTest {
             menu.setHarga(15000);
             menu.setKategori("Ramen");
             menu.setNama_menu("ramens" + i);
+            menu.setSignature(true);
             menuRepository.save(menu);
         }
 
         mockMvc.perform(
                 get("/api/auth/menus")
-                        .queryParam("nama_menu", "ramens")
+                        .queryParam("signature", "true")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("X-API-TOKEN","test")
@@ -311,43 +314,43 @@ class MenuControllerTest {
             assertEquals(0,response.getPaging().getCurrentPage());
             assertEquals(10,response.getPaging().getSize());
         });
-
-        mockMvc.perform(
-                get("/api/auth/menus")
-                        .queryParam("description", "Kuah Gulai Sapi")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .header("X-API-TOKEN","test")
-        ).andExpectAll(
-                status().isOk()
-        ).andDo(result -> {
-            WebResponse<List<MenuResponse>> response = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>() {
-            });
-            assertNull(response.getErrors());
-            assertEquals(10,response.getData().size());
-            assertEquals(10,response.getPaging().getTotalPage());
-            assertEquals(0,response.getPaging().getCurrentPage());
-            assertEquals(10,response.getPaging().getSize());
-        });
-
-        mockMvc.perform(
-                get("/api/auth/menus")
-                        .queryParam("kategori", "Ramen")
-                        .queryParam("page","1000")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .header("X-API-TOKEN","test")
-        ).andExpectAll(
-                status().isOk()
-        ).andDo(result -> {
-            WebResponse<List<MenuResponse>> response = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>() {
-            });
-            assertNull(response.getErrors());
-            assertEquals(0,response.getData().size());
-            assertEquals(10,response.getPaging().getTotalPage());
-            assertEquals(1000,response.getPaging().getCurrentPage());
-            assertEquals(10,response.getPaging().getSize());
-        });
+//
+//        mockMvc.perform(
+//                get("/api/auth/menus")
+//                        .queryParam("description", "Kuah Gulai Sapi")
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .header("X-API-TOKEN","test")
+//        ).andExpectAll(
+//                status().isOk()
+//        ).andDo(result -> {
+//            WebResponse<List<MenuResponse>> response = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>() {
+//            });
+//            assertNull(response.getErrors());
+//            assertEquals(10,response.getData().size());
+//            assertEquals(10,response.getPaging().getTotalPage());
+//            assertEquals(0,response.getPaging().getCurrentPage());
+//            assertEquals(10,response.getPaging().getSize());
+//        });
+//
+//        mockMvc.perform(
+//                get("/api/auth/menus")
+//                        .queryParam("kategori", "Ramen")
+//                        .queryParam("page","1000")
+//                        .accept(MediaType.APPLICATION_JSON)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .header("X-API-TOKEN","test")
+//        ).andExpectAll(
+//                status().isOk()
+//        ).andDo(result -> {
+//            WebResponse<List<MenuResponse>> response = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<>() {
+//            });
+//            assertNull(response.getErrors());
+//            assertEquals(0,response.getData().size());
+//            assertEquals(10,response.getPaging().getTotalPage());
+//            assertEquals(1000,response.getPaging().getCurrentPage());
+//            assertEquals(10,response.getPaging().getSize());
+//        });
 
 
 

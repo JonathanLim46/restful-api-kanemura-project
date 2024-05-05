@@ -42,6 +42,7 @@ public class MenuService {
         menu.setDescription(request.getDescription());
         menu.setHarga(request.getHarga());
         menu.setKategori(request.getKategori());
+        menu.setSignature(request.isSignature());
 
         menuRepository.save(menu);
 
@@ -55,6 +56,7 @@ public class MenuService {
                 .description(menu.getDescription())
                 .harga(menu.getHarga())
                 .kategori(menu.getKategori())
+                .signature(menu.isSignature())
                 .build();
     }
 
@@ -76,6 +78,7 @@ public class MenuService {
         menu.setKategori(request.getKategori());
         menu.setDescription(request.getDescription());
         menu.setHarga(request.getHarga());
+        menu.setSignature(request.isSignature());
         menuRepository.save(menu);
 
         return toMenuResponse(menu);
@@ -105,6 +108,12 @@ public class MenuService {
             if(Objects.nonNull(request.getHarga())){
                 predicates.add(builder.like(root.get("harga"), "%" + request.getHarga() + "%"));
             }
+            if (request.isSignature()) {
+                predicates.add(builder.isTrue(root.get("signature")));
+            } else {
+                predicates.add(builder.isFalse(root.get("signature")));
+            }
+
 
             return query.where(predicates.toArray(new Predicate[]{})).getRestriction();
         };

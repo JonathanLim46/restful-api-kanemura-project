@@ -26,4 +26,6 @@ public class CreateMenuRequest {
     @Size(max = 100)
     private String kategori;
 
+    private boolean signature;
+
 }
