@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class MenuResponse {
 
 
-    private Integer idMenu;
+    private Integer id;
 
     private String nama_menu;
 
