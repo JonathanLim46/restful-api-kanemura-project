@@ -27,38 +27,38 @@ public class MenuController {
     }
 
     @GetMapping(
-            path = "/api/auth/menus/{idMenu}",
+            path = "/api/menus/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public WebResponse<MenuResponse> get(@PathVariable("idMenu") Integer idMenu){
+    public WebResponse<MenuResponse> get(@PathVariable("id") Integer idMenu){
         MenuResponse menuResponse = menuService.get(idMenu);
         return WebResponse.<MenuResponse>builder().data(menuResponse).build();
     }
 
 
     @PutMapping(
-            path = "/api/auth/menus/{idMenu}",
+            path = "/api/auth/menus/{id}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public WebResponse<MenuResponse> update(@RequestBody UpdateMenuRequest request, @PathVariable("idMenu") Integer idMenu){
+    public WebResponse<MenuResponse> update(@RequestBody UpdateMenuRequest request, @PathVariable("id") Integer idMenu){
 
-        request.setIdMenu(idMenu);
+        request.setId(idMenu);
         MenuResponse menuResponse = menuService.update(request);
         return WebResponse.<MenuResponse>builder().data(menuResponse).build();
     }
 
     @DeleteMapping(
-            path = "/api/auth/menus/{idMenu}",
+            path = "/api/auth/menus/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public WebResponse<String> delete(@PathVariable("idMenu") Integer idMenu){
+    public WebResponse<String> delete(@PathVariable("id") Integer idMenu){
         menuService.delete(idMenu);
         return WebResponse.<String>builder().data("OK").build();
     }
 
     @GetMapping(
-            path = "/api/auth/menus",
+            path = "/api/menus",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public WebResponse<List<MenuResponse>> search(@RequestParam(value = "nama_menu", required = false) String nama_menu,

@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class UpdateMenuRequest {
 
     @JsonIgnore
-    private Integer idMenu;
+    private Integer id;
 
     @NotBlank
     @Size(max = 100)

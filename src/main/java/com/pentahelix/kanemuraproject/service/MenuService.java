@@ -51,7 +51,7 @@ public class MenuService {
 
     private MenuResponse toMenuResponse(Menu menu){
         return MenuResponse.builder()
-                .idMenu(menu.getIdMenu())
+                .id(menu.getId())
                 .nama_menu(menu.getNama_menu())
                 .description(menu.getDescription())
                 .harga(menu.getHarga())
@@ -62,8 +62,8 @@ public class MenuService {
 
 
     @org.springframework.transaction.annotation.Transactional(readOnly = true)
-    public MenuResponse get(Integer idMenu){
-        Menu menu = menuRepository.findFirstByIdMenu(idMenu)
+    public MenuResponse get(Integer id){
+        Menu menu = menuRepository.findFirstById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Menu Not Found"));
         return toMenuResponse(menu);
     }
@@ -72,7 +72,7 @@ public class MenuService {
     public MenuResponse update(UpdateMenuRequest request){
         validationService.validate(request);
 
-        Menu menu = menuRepository.findFirstByIdMenu(request.getIdMenu())
+        Menu menu = menuRepository.findFirstById(request.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Menu Not Found"));
         menu.setNama_menu(request.getNama_menu());
         menu.setKategori(request.getKategori());
@@ -85,8 +85,8 @@ public class MenuService {
     }
 
     @Transactional
-    public void delete(Integer idMenu){
-        Menu menu = menuRepository.findFirstByIdMenu(idMenu)
+    public void delete(Integer id){
+        Menu menu = menuRepository.findFirstById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Menu Not Found"));
 
         menuRepository.delete(menu);

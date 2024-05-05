@@ -108,14 +108,14 @@ class MenuControllerTest {
 
 
 
-            assertTrue(menuRepository.existsById(response.getData().getIdMenu()));
+            assertTrue(menuRepository.existsById(response.getData().getId()));
         });
     }
 
     @Test
     void getMenuNotFound() throws Exception{
         mockMvc.perform(
-                get("/api/auth/menus/234142323")
+                get("/api/menus/234142323")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("X-API-TOKEN","test")
@@ -140,7 +140,7 @@ class MenuControllerTest {
         menuRepository.save(menu);
 
         mockMvc.perform(
-                get("/api/auth/menus/" + menu.getIdMenu())
+                get("/api/menus/" + menu.getId())
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("X-API-TOKEN","test")
@@ -198,7 +198,7 @@ class MenuControllerTest {
         request.setKategori("Ramen");
 
         mockMvc.perform(
-                put("/api/auth/menus/" + menu.getIdMenu())
+                put("/api/auth/menus/" + menu.getId())
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
@@ -216,7 +216,7 @@ class MenuControllerTest {
 
 
 
-            assertTrue(menuRepository.existsById(response.getData().getIdMenu()));
+            assertTrue(menuRepository.existsById(response.getData().getId()));
         });
     }
 
@@ -248,7 +248,7 @@ class MenuControllerTest {
         menuRepository.save(menu);
 
         mockMvc.perform(
-                delete("/api/auth/menus/" + menu.getIdMenu())
+                delete("/api/auth/menus/" + menu.getId())
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("X-API-TOKEN","test")
@@ -267,7 +267,7 @@ class MenuControllerTest {
     void searchNotFound() throws Exception{
 
         mockMvc.perform(
-                get("/api/auth/menus")
+                get("/api/menus")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .header("X-API-TOKEN","test")
@@ -298,7 +298,7 @@ class MenuControllerTest {
         }
 
         mockMvc.perform(
-                get("/api/auth/menus")
+                get("/api/menus")
                         .queryParam("signature", "true")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
