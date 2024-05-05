@@ -29,4 +29,6 @@ public class Menu {
 
     private String kategori;
 
+    private boolean signature;
+
 }

@@ -25,4 +25,6 @@ public class SearchMenuRequest {
 
     @NotNull
     private Integer size;
+
+    private boolean signature;
 }

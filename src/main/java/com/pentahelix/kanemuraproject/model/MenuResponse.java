@@ -22,4 +22,6 @@ public class MenuResponse {
 
     private String kategori;
 
+    private boolean signature;
+
 }
