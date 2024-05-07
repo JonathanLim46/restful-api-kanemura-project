@@ -44,6 +44,7 @@ public class MenuService {
         menu.setKategori(request.getKategori());
         menu.setSignature(request.isSignature());
 
+
         menuRepository.save(menu);
 
         return toMenuResponse(menu);
@@ -108,10 +109,12 @@ public class MenuService {
             if(Objects.nonNull(request.getHarga())){
                 predicates.add(builder.like(root.get("harga"), "%" + request.getHarga() + "%"));
             }
-            if (request.isSignature()) {
-                predicates.add(builder.isTrue(root.get("signature")));
-            } else {
-                predicates.add(builder.isFalse(root.get("signature")));
+            if (Objects.nonNull(request.isSignature())) {
+                predicates.add(builder.or(
+                        builder.isTrue(root.get("signature")),
+                        builder.isFalse(root.get("signature")),
+                        builder.isNull(root.get("signature"))
+                ));
             }
 
 
